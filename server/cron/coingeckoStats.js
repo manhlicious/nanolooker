@@ -24,7 +24,7 @@ const getPriceStats = async () => {
       nodeCache.set(`${COINGECKO_ALL_PRICE_STATS}-${fiat}`, json);
       nodeCache.set(`${COINGECKO_PRICE_STATS}-${fiat}`, {
         bitcoin: json.bitcoin,
-        nano: json.nano,
+        banano: json.banano,
       });
     });
   } catch (err) {
@@ -37,7 +37,7 @@ const getMarketStats = async () => {
   try {
     allowedFiats.forEach(async fiat => {
       const res = await fetch(
-        "https://api.coingecko.com/api/v3/coins/nano?localization=false&tickers=false&market_data=true&community_data=true&developer_data=true&sparkline=true",
+        "https://api.coingecko.com/api/v3/coins/banano?localization=false&tickers=false&market_data=true&community_data=true&developer_data=true&sparkline=true",
       );
 
       const {
@@ -73,7 +73,7 @@ const getMarketStats = async () => {
 };
 
 // Every 15 seconds
-cron.schedule("*/15 * * * * *", async () => {
+cron.schedule("*/45 * * * * *", async () => {
   getPriceStats();
   getMarketStats();
 });

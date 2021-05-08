@@ -53,7 +53,7 @@ const Search = ({ isHome = false }) => {
           let account = value.toLowerCase();
 
           if (!account.includes("_")) {
-            account = `nano_${account}`;
+            account = `ban_${account}`;
             setSearchValue(account);
           }
           addSearchHistory(account);

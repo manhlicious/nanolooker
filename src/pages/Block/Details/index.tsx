@@ -1,16 +1,7 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import {
-  Alert,
-  Card,
-  Col,
-  Row,
-  Skeleton,
-  Tag,
-  Tooltip,
-  Typography,
-} from "antd";
+import { Card, Col, Row, Skeleton, Tag, Tooltip, Typography } from "antd";
 import { CheckCircleOutlined, SyncOutlined } from "@ant-design/icons";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import TimeAgo from "timeago-react";
@@ -156,33 +147,6 @@ const BlockDetails: React.FC = () => {
                   {...skeletonProps}
                   title={{ width: isSmallAndLower ? "50%" : "20%" }}
                 >
-                  {!isConfirmed ? (
-                    <>
-                      <Alert
-                        message="Has the block been unconfirmed for a while?"
-                        description={
-                          <>
-                            Join the{" "}
-                            <strong>Confirmy-block - Nano work pool</strong>{" "}
-                            Discord channel and ask for assistance{" "}
-                            <a
-                              href="https://discord.gg/HtcQhk6NVd"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              https://discord.gg/HtcQhk6NVd
-                            </a>
-                          </>
-                        }
-                        type="info"
-                        style={{
-                          marginBottom: "12px",
-                          display: "inline-block",
-                        }}
-                      />
-                      <br />
-                    </>
-                  ) : null}
                   <Tooltip
                     placement={isSmallAndLower ? "right" : "top"}
                     title={t(
@@ -243,7 +207,7 @@ const BlockDetails: React.FC = () => {
                     isSmallAndLower &&
                     new BigNumber(amount).toFormat().length >= 25
                       ? ""
-                      : "NANO"
+                      : "BAN"
                   }
                   value={
                     amount >= 1 ? amount : new BigNumber(amount).toFormat()
@@ -269,7 +233,7 @@ const BlockDetails: React.FC = () => {
                   {...skeletonProps}
                   title={{ width: isSmallAndLower ? "100%" : "33%" }}
                 >
-                  {new BigNumber(balance).toFormat()} NANO
+                  {new BigNumber(balance).toFormat()} BAN
                   <br />
                 </Skeleton>
                 <Skeleton

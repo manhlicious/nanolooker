@@ -15,6 +15,8 @@ const doTelemetryCron = async () => {
       raw: true,
     });
 
+    console.log("~~~~metrics", metrics);
+    return;
     const percentiles = calculatePercentiles(metrics);
 
     nodeCache.set(TELEMETRY, percentiles);
@@ -167,9 +169,10 @@ const calculateAverage = (values, percentile, isInt = true) => {
 cron.schedule("*/10 * * * *", async () => {
   if (process.env.NODE_ENV !== "production") return;
 
-  doTelemetryCron();
+  // @NOTE Telemetry is not available on Banano
+  // doTelemetryCron();
 });
 
-if (process.env.NODE_ENV === "production") {
-  doTelemetryCron();
-}
+// if (process.env.NODE_ENV === "production") {
+//   doTelemetryCron();
+// }

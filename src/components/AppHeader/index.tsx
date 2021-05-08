@@ -20,7 +20,6 @@ const AppHeader: React.FC = () => {
   const [activeMenu, setActiveMenu] = React.useState<string>("");
   const history = useHistory();
   const { pathname } = useLocation();
-  // const isHomePage = pathname === "/";
 
   React.useEffect(() => {
     const key = pathname.replace(/\/?([^/]+)/, "$1");
@@ -50,7 +49,7 @@ const AppHeader: React.FC = () => {
             }}
           >
             <Link to="/" style={{ whiteSpace: "nowrap", marginRight: "10px" }}>
-              NanoLooker
+              BananoLooker
             </Link>
           </Col>
           <Col xs={{ span: 24, order: 3 }} md={{ span: 12, order: 2 }}>
@@ -90,10 +89,6 @@ const AppHeader: React.FC = () => {
                 <Menu.Item key="exchange-tracker">
                   {t("menu.exchangeTracker")}
                   <Link to="/exchange-tracker" />
-                </Menu.Item>
-                <Menu.Item key="faucets">
-                  {t("menu.faucets")}
-                  <Link to="/faucets" />
                 </Menu.Item>
               </SubMenu>
 

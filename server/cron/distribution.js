@@ -16,7 +16,6 @@ const {
   STATUS,
 } = require("../constants");
 const { rawToRai } = require("../utils");
-const { BURN_ACCOUNT } = require("../../src/knownAccounts.json");
 const { rpc } = require("../rpc");
 const readdir = util.promisify(fs.readdir);
 const mkdir = util.promisify(fs.mkdir);
@@ -30,7 +29,7 @@ const DORMANT_FUNDS_PATH = join(__dirname, "../data/dormantFunds.json");
 const KNOWN_EXCHANGES_PATH = join(__dirname, "../data/knownExchanges.json");
 const STATUS_PATH = join(__dirname, "../data/status.json");
 // Balance + pending below this amount will be ignored
-const MIN_TOTAL = 0.001;
+const MIN_TOTAL = 1;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -38,8 +37,9 @@ const getAccounts = async () => {
   const { count } = await rpc("frontier_count");
 
   let currentAccountCount = 0;
-  let nextAccount = BURN_ACCOUNT;
-  let steps = 500000;
+  let nextAccount =
+    "ban_1111111111111111111111111111111111111111111111111111hifc8npp";
+  let steps = 50000;
   let nextCount = 0;
 
   let currentPage = 0;
@@ -95,7 +95,6 @@ const getKnownExchanges = async () => {
 
 const getDistribution = async () => {
   // Distribution pattern
-  // 0.001 - <1
   // 1 - <10
   // 10 - <100
   // 100 - <1000
@@ -104,7 +103,9 @@ const getDistribution = async () => {
   // 100,000 - <1,000,000
   // 1,000,000 - <10,000,000
   // 10,000,000 - <100,000,000
-  const distribution = Array.from({ length: 9 }, () => ({
+  // 100,000,000 - <1,000,000,000
+  // 1,000,000,000 - <10,000,000,000
+  const distribution = Array.from({ length: 10 }, () => ({
     accounts: 0,
     balance: 0,
   }));
@@ -148,7 +149,7 @@ const getDistribution = async () => {
 
             if (total < MIN_TOTAL) return;
 
-            const index = total >= 1 ? `${parseInt(total)}`.length : 0;
+            const index = `${parseInt(total)}`.length - 1;
 
             // Add the account as part of the Distribution
             distribution[index] = {
@@ -196,7 +197,7 @@ const getDistribution = async () => {
       );
 
       // @TODO check if can remove the sleep now that the node is a bit more powerful
-      await sleep(100);
+      await sleep(3000);
     }
   }
 
@@ -262,7 +263,7 @@ cron.schedule("15 5 * * 2", async () => {
 //   !fs.existsSync(KNOWN_EXCHANGES_PATH) &&
 //   !fs.existsSync(STATUS_PATH)
 // ) {
-//   doDistributionCron();
+// doDistributionCron();
 // }
 
 const getDistributionData = () => {
